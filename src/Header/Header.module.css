@@ -1,0 +1,17 @@
+.wrapper {
+  background-color: #f90;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.logo {
+  width: 100px;
+}
