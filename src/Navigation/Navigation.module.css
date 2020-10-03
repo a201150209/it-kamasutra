@@ -1,7 +1,14 @@
 .wrapper {
   background-color: #a9f;
+  min-height: 500px;
 }
 
-.item {
+.link {
   color: #fff;
+  display: block;
+  padding: 10px;
+}
+
+.active {
+  color: yellow;
 }

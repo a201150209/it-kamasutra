@@ -1,0 +1,8 @@
+.wrapper {
+  display: flex;
+}
+
+.dialogs,
+.messages {
+  padding: 10px;
+}

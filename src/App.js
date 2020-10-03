@@ -6,20 +6,25 @@ import Navigation from "./Navigation/Navigation";
 import Profile from "./Content/Profile/Profile";
 import Dialogs from "./Content/Dialogs/Dialogs";
 
-function App() {
+function App(props) {
   return (
     <BrowserRouter>
+      {/*Browser router используется один раз в приложении*/}
       <div className={s.App}>
         <Header />
-        <Navigation />
-        <Switch>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/dialogs">
-            <Dialogs />
-          </Route>
-        </Switch>
+        <div className={s.mainWrapper}>
+          <Navigation />
+          <Switch>
+            <Route path="/profile">
+              {/*Испольазование render????*/}
+              <Profile state={props.state.profile} dispatch={props.dispatch} />
+            </Route>
+            {/*чтобы указать точный путь, добавь exact: <Route exact path="/dialogs">*/}
+            <Route path="/dialogs">
+              <Dialogs state={props.state.dialogs} />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </BrowserRouter>
   );

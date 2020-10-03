@@ -1,0 +1,27 @@
+.wrapper {
+  background: antiquewhite;
+  padding: 10px;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+}
+
+.postWrapper {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.newPostForm {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.newPostField {
+  margin-bottom: 5px;
+}
