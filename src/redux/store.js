@@ -113,14 +113,24 @@ const store = {
         "https://avatars.mds.yandex.net/get-zen_doc/1911932/pub_5d518c6435ca3100ae8f4dbc_5d518ce495aa9f00af908c99/scale_1200",
       postText: fieldElement.value,
     });
-    fieldElement.value = "";
-    this._callSubscriber(this._state);
+    fieldElement.value = ``;
+  },
+  addNewMessage(fieldElement) {
+    this._state.dialogs.messages.push({
+      id: this._state.profile.messages.length + 1,
+      dialogId: undefined,
+      text: fieldElement.value,
+      isReplied: false,
+      deliveredDate: new Date.toISOString(),
+    });
+    fieldElement.value = ``;
   },
   dispatch(action) {
     //action - object
     if (action.type === ActionType.ADD_NEW_POST) {
       this.addNewPost(action.element);
     }
+    this._callSubscriber(this._state);
   },
 };
 
