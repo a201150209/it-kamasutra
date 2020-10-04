@@ -3,26 +3,37 @@ import s from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import { Route } from "react-router-dom";
+import { addMessageActionCreator } from "../../redux/store";
+
+const newMessageField = React.createRef();
 
 const Dialogs = (props) => {
   const dialogsComponents = props.state.dialogs.map((d) => {
-    return <Dialog key={d.id} id={d.id} name={d.name} isActive={d.isActive} />;
+    return <Dialog key={d.id} state={d} dispatch={props.dispatch} />;
   });
-
   const messagesComponents = props.state.messages.map((m) => {
     return (
       <Route key={m.id} path={`/dialogs/${m.dialogId}`}>
-        <Message id={m.id} text={m.text}></Message>
+        <Message state={m}></Message>
       </Route>
     );
   });
-  const getMessagesComponent = () => {
+  const addNewMessage = () => {
+    const action = addMessageActionCreator(newMessageField.current);
+    props.dispatch(action);
+  };
+  const getMessagesComponents = () => {
     return (
       <div>
         {messagesComponents}
-        <div>
-          <textarea placeholder="Send a message, bro!"></textarea>
-          <button type="button">Send message</button>
+        <div className={s.formWrapper}>
+          <textarea
+            placeholder="Send a message, bro!"
+            ref={newMessageField}
+          ></textarea>
+          <button type="button" onClick={addNewMessage}>
+            Send message
+          </button>
         </div>
       </div>
     );
@@ -33,7 +44,7 @@ const Dialogs = (props) => {
       <h2>Мои сообщения</h2>
       <div className={s.wrapper}>
         <div className={s.dialogs}>{dialogsComponents}</div>
-        <div className={s.messages}>{getMessagesComponent()}</div>
+        <div className={s.messages}>{getMessagesComponents()}</div>
       </div>
     </div>
   );

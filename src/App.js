@@ -21,7 +21,7 @@ function App(props) {
             </Route>
             {/*чтобы указать точный путь, добавь exact: <Route exact path="/dialogs">*/}
             <Route path="/dialogs">
-              <Dialogs state={props.state.dialogs} />
+              <Dialogs state={props.state.dialogs} dispatch={props.dispatch} />
             </Route>
           </Switch>
         </div>
