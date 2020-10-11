@@ -1,3 +1,6 @@
+import dialogsReducer from "./dialogs-reducer";
+import profileReducer from "./profile-reducer";
+
 const ActionType = {
   ADD_NEW_POST: `ADD_NEW_POST`,
   ADD_NEW_MESSAGE: `ADD_NEW_MESSAGE`,
@@ -114,74 +117,11 @@ const store = {
   subscribe(observer) {
     this._callSubscriber = observer;
   },
-  addNewPost(fieldElement) {
-    this._state.profile.userPosts.push({
-      id: this._state.profile.userPosts.length + 1,
-      avatarSrc:
-        "https://avatars.mds.yandex.net/get-zen_doc/1911932/pub_5d518c6435ca3100ae8f4dbc_5d518ce495aa9f00af908c99/scale_1200",
-      postText: fieldElement.value,
-    });
-    fieldElement.value = ``;
-  },
-  addNewMessage(fieldElement, dialogId, ownderId) {
-    this._state.dialogs.messages.push({
-      id: this._state.dialogs.messages.length + 1,
-      dialogId: dialogId,
-      text: fieldElement.value,
-      isReplied: false,
-      deliveredDate: new Date().toISOString(),
-      ownerId: ownderId,
-    });
-    fieldElement.value = ``;
-  },
-  changeActiveDialog(currentActiveDialog, newActiveDialog) {
-    if (currentActiveDialog.id !== newActiveDialog.id) {
-      currentActiveDialog.isActive = false;
-      newActiveDialog.isActive = true;
-    }
-  },
   dispatch(action) {
-    //action - object
-    if (action.type === ActionType.ADD_NEW_POST) {
-      this.addNewPost(action.element);
-    } else if (action.type === ActionType.ADD_NEW_MESSAGE) {
-      this.addNewMessage(action.element, action.dialogId, action.ownerId);
-    } else if (action.type === ActionType.CHANGE_ACTIVE_DIALOG) {
-      this.changeActiveDialog(
-        action.currentActiveDialog,
-        action.newActiveDialog
-      );
-    }
+    dialogsReducer(this._state.dialogs, action);
+    profileReducer(this._state.profile, action);
     this._callSubscriber(this._state);
   },
-};
-
-export const addPostActionCreator = (fieldElement) => {
-  return {
-    type: ActionType.ADD_NEW_POST,
-    element: fieldElement,
-  };
-};
-export const addMessageActionCreator = (fieldElement) => {
-  return {
-    type: ActionType.ADD_NEW_MESSAGE,
-    element: fieldElement,
-    dialogId: store._state.dialogs.dialogs.find((d) => {
-      return d.isActive;
-    }).id,
-    ownerId: 0,
-  };
-};
-export const changeActiveDialogActionCreator = (newId) => {
-  return {
-    type: ActionType.CHANGE_ACTIVE_DIALOG,
-    currentActiveDialog: store._state.dialogs.dialogs.find((d) => {
-      return d.isActive;
-    }),
-    newActiveDialog: store._state.dialogs.dialogs.find((d) => {
-      return d.id === newId;
-    }),
-  };
 };
 
 export default store;

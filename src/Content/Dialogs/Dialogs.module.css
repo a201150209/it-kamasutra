@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+}
+
+.dialogs,
+.messages {
+  padding: 10px;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.formWrapper textarea {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

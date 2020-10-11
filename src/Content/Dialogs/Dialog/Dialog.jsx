@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Dialog.module.css";
-import { changeActiveDialogActionCreator } from "../../../redux/store";
+import { changeActiveDialogActionCreator } from "../../../redux/dialogs-reducer";
 
 const Dialog = (props) => {
   const changeActiveDialog = (id) => {

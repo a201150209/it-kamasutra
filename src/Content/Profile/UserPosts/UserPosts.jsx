@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./UserPosts.module.css";
-import { addPostActionCreator } from "../../../redux/store";
+import { addPostActionCreator } from "../../../redux/profile-reducer";
 
 const newPostField = React.createRef();
 

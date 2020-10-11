@@ -3,7 +3,7 @@ import s from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import { Route } from "react-router-dom";
-import { addMessageActionCreator } from "../../redux/store";
+import { addMessageActionCreator } from "../../redux/dialogs-reducer";
 
 const newMessageField = React.createRef();
 
