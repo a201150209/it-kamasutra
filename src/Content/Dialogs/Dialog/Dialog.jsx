@@ -1,21 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Dialog.module.css";
-import { changeActiveDialogActionCreator } from "../../../redux/dialogs-reducer";
+
 
 const Dialog = (props) => {
   const changeActiveDialog = (id) => {
-    const action = changeActiveDialogActionCreator(id);
-    props.dispatch(action);
+    props.changeActiveDialog(id);
   };
   return (
     <div className={s.wrapper}>
       <NavLink
-        to={`/dialogs/${props.state.id}`}
-        id={`Dialog__${props.state.id}`}
-        onClick={changeActiveDialog.bind(null, props.state.id)}
+        to={`/dialogs/${props.dialog.id}`}
+        id={`Dialog__${props.dialog.id}`}
+        onClick={changeActiveDialog(props.dialog.id)}
       >
-        {props.state.name}
+        {props.dialog.name}
       </NavLink>
     </div>
   );

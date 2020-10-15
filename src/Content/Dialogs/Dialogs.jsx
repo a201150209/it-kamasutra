@@ -3,29 +3,31 @@ import s from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import { Route } from "react-router-dom";
-import { addMessageActionCreator } from "../../redux/dialogs-reducer";
 
 const newMessageField = React.createRef();
 
 const Dialogs = (props) => {
-  const dialogsComponents = props.state.dialogs.map((d) => {
-    return <Dialog key={d.id} state={d} dispatch={props.dispatch} />;
+  const dialogsComponents = props.dialogs.map((dialog) => {
+    return <Dialog key={dialog.id} dialog={dialog} changeActiveDialog={props.changeActiveDialog} />;
   });
-  const messagesComponents = props.state.messages.map((m) => {
+
+  const messagesComponents = props.messages.map((message) => {
     return (
-      <Route key={m.id} path={`/dialogs/${m.dialogId}`}>
-        <Message state={m}></Message>
+      <Route key={message.id} path={`/dialogs/${message.dialogId}`}>
+        <Message message={message}></Message>
       </Route>
     );
   });
+
   const addNewMessage = () => {
-    const action = addMessageActionCreator(newMessageField.current);
-    props.dispatch(action);
+    props.addNewMessage(newMessageField.current)
   };
+
   const getMessagesComponents = () => {
     return (
       <div>
         {messagesComponents}
+       {/* todo перенести в отдельный компонет*/}
         <div className={s.formWrapper}>
           <textarea
             placeholder="Send a message, bro!"

@@ -4,7 +4,7 @@ import s from "./Message.module.css";
 const Message = (props) => {
   return (
     <div className={s.wrapper}>
-      <p id={`Message__${props.state.id}`}>{props.state.text}</p>
+      <p id={`Message__${props.message.id}`}>{props.message.text}</p>
     </div>
   );
 };

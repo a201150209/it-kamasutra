@@ -4,7 +4,7 @@ import s from "./App.module.css";
 import Header from "./Header/Header";
 import Navigation from "./Navigation/Navigation";
 import Profile from "./Content/Profile/Profile";
-import Dialogs from "./Content/Dialogs/Dialogs";
+import DialogsContainer from "./Content/Dialogs/Dialogs.container";
 
 function App(props) {
   return (
@@ -21,7 +21,7 @@ function App(props) {
             </Route>
             {/*чтобы указать точный путь, добавь exact: <Route exact path="/dialogs">*/}
             <Route path="/dialogs">
-              <Dialogs state={props.state.dialogs} dispatch={props.dispatch} />
+              <DialogsContainer state={props.state.dialogs} dispatch={props.dispatch} />
             </Route>
           </Switch>
         </div>
