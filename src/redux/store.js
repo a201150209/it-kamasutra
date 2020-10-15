@@ -1,12 +1,6 @@
 import dialogsReducer from "./dialogs-reducer";
 import profileReducer from "./profile-reducer";
 
-const ActionType = {
-  ADD_NEW_POST: `ADD_NEW_POST`,
-  ADD_NEW_MESSAGE: `ADD_NEW_MESSAGE`,
-  CHANGE_ACTIVE_DIALOG: `CHANGE_ACTIVE_DIALOG`,
-};
-
 const store = {
   _state: {
     profile: {
