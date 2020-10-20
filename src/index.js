@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import store from "./redux/store";
 import reduxStore from "./redux/redux-store";
 
 const rerenderApp = () => {
@@ -18,5 +17,3 @@ const rerenderApp = () => {
 
 rerenderApp();
 reduxStore.subscribe(rerenderApp);
-debugger;
-console.log(`1`);

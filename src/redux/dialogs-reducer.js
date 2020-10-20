@@ -1,108 +1,119 @@
-import store from "./store";
-
 const ActionType = {
   ADD_NEW_MESSAGE: `ADD_NEW_MESSAGE`,
   CHANGE_ACTIVE_DIALOG: `CHANGE_ACTIVE_DIALOG`,
 };
 
-const initialState = {
-  dialogs: [
-    {
-      id: 1,
-      name: "Dmitriy",
-      lastUpdateDate: "2015-01-26T13:51:50.417-07:00",
-      isActive: true,
-    },
-    {
-      id: 2,
-      name: "Vasiliy",
-      lastUpdateDate: "2018-01-26T13:51:50.417-07:00",
-      isActive: false,
-    },
-    {
-      id: 3,
-      name: "Ivan",
-      lastUpdateDate: "2012-01-26T13:51:50.417-07:00",
-      isActive: false,
-    },
-    {
-      id: 4,
-      name: "Goga",
-      lastUpdateDate: "2012-02-26T13:51:50.417-07:00",
-      isActive: false,
-    },
-  ],
-  messages: [
-    {
-      id: 1,
-      dialogId: 1,
-      text: "How are you?",
-      isReplied: false,
-      deliveredDate: "2015-01-26T13:51:50.417-07:00",
-      ownerId: 1,
-    },
-    {
-      id: 2,
-      dialogId: 1,
-      text: "Go away",
-      isReplied: false,
-      deliveredDate: "2015-01-25T13:51:50.417-07:00",
-      ownerId: 1,
-    },
-    {
-      id: 3,
-      dialogId: 2,
-      text: "Go home",
-      isReplied: false,
-      deliveredDate: "2015-01-24T13:51:50.417-07:00",
-      ownerId: 2,
-    },
-    {
-      id: 4,
-      dialogId: 2,
-      text: "Go go",
-      isReplied: false,
-      deliveredDate: "2015-01-23T13:51:50.417-07:00",
-      ownerId: 2,
-    },
-    {
-      id: 5,
-      dialogId: 2,
-      text: "wait",
-      isReplied: false,
-      deliveredDate: "2015-01-22T13:51:50.417-07:00",
-      ownerId: 2,
-    },
-    {
-      id: 6,
-      dialogId: 3,
-      text: "this is nagatinskaya",
-      isReplied: false,
-      deliveredDate: "2015-01-21T13:51:50.417-07:00",
-      ownerId: 3,
-    },
-  ],
-};
+const initialState = [
+  {
+    id: 1,
+    name: "Dmitriy",
+    lastUpdateDate: "2015-01-26T13:51:50.417-07:00",
+    isActive: true,
+    messages: [
+      {
+        id: 1,
+        text: "How are you?",
+        isReplied: false,
+        deliveredDate: "2015-01-26T13:51:50.417-07:00",
+        ownerId: 1,
+      },
+      {
+        id: 2,
+        text: "Go away",
+        isReplied: false,
+        deliveredDate: "2015-01-25T13:51:50.417-07:00",
+        ownerId: 100,
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Vasiliy",
+    lastUpdateDate: "2018-01-26T13:51:50.417-07:00",
+    isActive: false,
+    messages: [
+      {
+        id: 1,
+        text: "vasya ?",
+        isReplied: false,
+        deliveredDate: "2015-01-26T13:51:50.417-07:00",
+        ownerId: 2,
+      },
+      {
+        id: 2,
+        text: "Go away",
+        isReplied: false,
+        deliveredDate: "2015-01-25T13:51:50.417-07:00",
+        ownerId: 100,
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Ivan",
+    lastUpdateDate: "2012-01-26T13:51:50.417-07:00",
+    isActive: false,
+    messages: [
+      {
+        id: 1,
+        text: "ivan ?",
+        isReplied: false,
+        deliveredDate: "2015-01-26T13:51:50.417-07:00",
+        ownerId: 3,
+      },
+      {
+        id: 2,
+        text: "Go away",
+        isReplied: false,
+        deliveredDate: "2015-01-25T13:51:50.417-07:00",
+        ownerId: 100,
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: "Goga",
+    lastUpdateDate: "2012-02-26T13:51:50.417-07:00",
+    isActive: false,
+    messages: [
+      {
+        id: 1,
+        text: "goga ?",
+        isReplied: false,
+        deliveredDate: "2015-01-26T13:51:50.417-07:00",
+        ownerId: 2,
+      },
+      {
+        id: 2,
+        text: "Go away",
+        isReplied: false,
+        deliveredDate: "2015-01-25T13:51:50.417-07:00",
+        ownerId: 100,
+      },
+    ],
+  },
+];
 
-export const addMessageActionCreator = (element) => {
+export const addMessageActionCreator = (state, element) => {
+  // нормально ли пробрасывать стейт из пропсов?
   return {
     type: ActionType.ADD_NEW_MESSAGE,
     element: element,
-    dialogId: store._state.dialogs.dialogs.find((d) => {
-      return d.isActive;
-    }).id,
-    ownerId: 0,
+    dialog: state.find((dialog) => {
+      return dialog.isActive;
+    }),
+    ownerId: 100,
   };
 };
 
-export const changeActiveDialogActionCreator = (newId) => {
+export const changeActiveDialogActionCreator = (state, newId) => {
   return {
     type: ActionType.CHANGE_ACTIVE_DIALOG,
-    currentActiveDialog: store._state.dialogs.dialogs.find((d) => {
-      return d.isActive;
+    currentActiveDialog: state.find((dialog) => {
+      return dialog.isActive;
     }),
-    newActiveDialog: store._state.dialogs.dialogs.find((d) => {
-      return d.id === newId;
+    newActiveDialog: state.find((dialog) => {
+      return dialog.id === newId;
     }),
   };
 };
@@ -110,14 +121,14 @@ export const changeActiveDialogActionCreator = (newId) => {
 const dialogsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.ADD_NEW_MESSAGE:
-      state.messages.push({
-        id: state.messages.length + 1,
-        dialogId: action.dialogId,
+      action.dialog.messages.push({
+        id: action.dialog.messages.length + 1,
         text: action.element.value,
         isReplied: false,
         deliveredDate: new Date().toISOString(),
-        ownerId: action.ownderId,
+        ownerId: action.ownerId,
       });
+      //нормально ли очищать поле в редьюсере?
       action.element.value = ``;
       break;
     case ActionType.CHANGE_ACTIVE_DIALOG:

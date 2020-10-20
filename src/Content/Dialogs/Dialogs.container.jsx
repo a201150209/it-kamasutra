@@ -1,23 +1,28 @@
 import React from "react";
-import {addMessageActionCreator, changeActiveDialogActionCreator} from "../../redux/dialogs-reducer";
+import {
+  addMessageActionCreator,
+  changeActiveDialogActionCreator,
+} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 
-
 const DialogsContainer = (props) => {
+  const addNewMessage = (field) => {
+    const action = addMessageActionCreator(props.state, field);
+    props.dispatch(action);
+  };
 
-    const addNewMessage = (field) => {
-        const action = addMessageActionCreator(field);
-        props.dispatch(action);
-    };
+  const changeActiveDialog = (id) => {
+    const action = changeActiveDialogActionCreator(props.state, id);
+    props.dispatch(action);
+  };
 
-    const changeActiveDialog = (id) => {
-        const action = changeActiveDialogActionCreator(id);
-        props.dispatch(action);
-    };
-
-    return (
-        <Dialogs dialogs={props.state.dialogs} messages={props.state.messages} changeActiveDialog={changeActiveDialog()} addNewMessage={addNewMessage}/>
-    )
+  return (
+    <Dialogs
+      dialogs={props.state}
+      changeActiveDialog={changeActiveDialog}
+      addNewMessage={addNewMessage}
+    />
+  );
 };
 
 export default DialogsContainer;

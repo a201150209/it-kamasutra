@@ -1,8 +1,54 @@
 .wrapper {
-  border-bottom: 1px solid gainsboro;
-  border-top: 1px solid gainsboro;
+  display: flex;
+}
+
+.dialog {
   padding: 5px 15px;
   margin: 5px 0;
   font-size: 20px;
 }
 
+.messages {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 300px;
+  top: 180px;
+}
+
+.message {
+  border-radius: 20px;
+  border: 1px solid lightblue;
+  padding: 0 10px;
+  margin: 3px;
+  background-color: lightblue;
+}
+
+.myMessage {
+  align-self: flex-end;
+  background-color: gold;
+}
+
+.interlocutorMessage {
+  align-self: flex-start;
+  background-color: lightgreen;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.formWrapper textarea {
+  margin: 10px 0;
+}
+
+.link {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+.activeLink {
+  color: red;
+}
