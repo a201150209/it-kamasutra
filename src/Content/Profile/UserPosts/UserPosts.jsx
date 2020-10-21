@@ -1,13 +1,11 @@
 import React from "react";
 import s from "./UserPosts.module.css";
-import { addPostActionCreator } from "../../../redux/profile-reducer";
 
 const newPostField = React.createRef();
 
 const NewPostForm = (props) => {
-  const addNewPost = () => {
-    const action = addPostActionCreator(newPostField.current);
-    props.dispatch(action);
+  const onClick = () => {
+    props.addNewPost(newPostField.current);
   };
 
   return (
@@ -17,7 +15,7 @@ const NewPostForm = (props) => {
         placeholder="Type your post, German"
         ref={newPostField}
       ></textarea>
-      <button className={s.newPostBtn} onClick={addNewPost}>
+      <button className={s.newPostBtn} onClick={onClick}>
         Add new post
       </button>
     </div>
@@ -43,7 +41,7 @@ const UserPosts = (props) => {
   return (
     <div>
       <div className={s.wrapper}>
-        <NewPostForm dispatch={props.dispatch} />
+        <NewPostForm addNewPost={props.addNewPost} />
         {userPosts}
       </div>
     </div>

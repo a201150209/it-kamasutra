@@ -7,12 +7,12 @@ import Dialogs from "./Dialogs";
 
 const DialogsContainer = (props) => {
   const addNewMessage = (field) => {
-    const action = addMessageActionCreator(props.state, field);
+    const action = addMessageActionCreator(field);
     props.dispatch(action);
   };
 
   const changeActiveDialog = (id) => {
-    const action = changeActiveDialogActionCreator(props.state, id);
+    const action = changeActiveDialogActionCreator(id);
     props.dispatch(action);
   };
 

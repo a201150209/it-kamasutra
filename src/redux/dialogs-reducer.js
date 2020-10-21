@@ -1,3 +1,5 @@
+//todo сделать определение активного диалога в зависимости от url
+
 const ActionType = {
   ADD_NEW_MESSAGE: `ADD_NEW_MESSAGE`,
   CHANGE_ACTIVE_DIALOG: `CHANGE_ACTIVE_DIALOG`,
@@ -94,35 +96,29 @@ const initialState = [
   },
 ];
 
-export const addMessageActionCreator = (state, element) => {
-  // нормально ли пробрасывать стейт из пропсов?
+export const addMessageActionCreator = (element) => {
   return {
     type: ActionType.ADD_NEW_MESSAGE,
     element: element,
-    dialog: state.find((dialog) => {
-      return dialog.isActive;
-    }),
     ownerId: 100,
   };
 };
 
-export const changeActiveDialogActionCreator = (state, newId) => {
+export const changeActiveDialogActionCreator = (newId) => {
   return {
     type: ActionType.CHANGE_ACTIVE_DIALOG,
-    currentActiveDialog: state.find((dialog) => {
-      return dialog.isActive;
-    }),
-    newActiveDialog: state.find((dialog) => {
-      return dialog.id === newId;
-    }),
+    newId,
   };
 };
 
 const dialogsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.ADD_NEW_MESSAGE:
-      action.dialog.messages.push({
-        id: action.dialog.messages.length + 1,
+      const activeDialog = state.find((dialog) => {
+        return dialog.isActive;
+      });
+      activeDialog.messages.push({
+        id: activeDialog.messages.length + 1,
         text: action.element.value,
         isReplied: false,
         deliveredDate: new Date().toISOString(),
@@ -132,9 +128,16 @@ const dialogsReducer = (state = initialState, action) => {
       action.element.value = ``;
       break;
     case ActionType.CHANGE_ACTIVE_DIALOG:
-      if (action.currentActiveDialog.id !== action.newActiveDialog.id) {
-        action.currentActiveDialog.isActive = false;
-        action.newActiveDialog.isActive = true;
+      const currentActiveDialog = state.find((dialog) => {
+        return dialog.isActive;
+      });
+      const newActiveDialog = state.find((dialog) => {
+        return dialog.id === action.newId;
+      });
+      debugger;
+      if (currentActiveDialog.id !== newActiveDialog.id) {
+        currentActiveDialog.isActive = false;
+        newActiveDialog.isActive = true;
       }
       break;
   }
