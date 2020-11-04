@@ -32,6 +32,7 @@ const UserPost = (props) => {
 };
 
 const UserPosts = (props) => {
+  
   const userPosts = props.userPosts.map((p) => {
     return (
       <UserPost key={p.id} avatarSrc={p.avatarSrc} postText={p.postText} />

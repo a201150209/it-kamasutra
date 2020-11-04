@@ -124,6 +124,7 @@ const dialogsReducer = (state = initialState, action) => {
         deliveredDate: new Date().toISOString(),
         ownerId: action.ownerId,
       });
+      debugger
       //нормально ли очищать поле в редьюсере?
       action.element.value = ``;
       break;
@@ -134,7 +135,6 @@ const dialogsReducer = (state = initialState, action) => {
       const newActiveDialog = state.find((dialog) => {
         return dialog.id === action.newId;
       });
-      debugger;
       if (currentActiveDialog.id !== newActiveDialog.id) {
         currentActiveDialog.isActive = false;
         newActiveDialog.isActive = true;
