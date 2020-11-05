@@ -112,11 +112,14 @@ export const changeActiveDialogActionCreator = (newId) => {
 };
 
 const dialogsReducer = (state = initialState, action) => {
+  const stateCopy = [...state];
   switch (action.type) {
+  
     case ActionType.ADD_NEW_MESSAGE:
-      const activeDialog = state.find((dialog) => {
+      const activeDialog = stateCopy.find((dialog) => {
         return dialog.isActive;
       });
+      activeDialog.messages = [...activeDialog.messages];
       activeDialog.messages.push({
         id: activeDialog.messages.length + 1,
         text: action.element.value,
@@ -124,15 +127,15 @@ const dialogsReducer = (state = initialState, action) => {
         deliveredDate: new Date().toISOString(),
         ownerId: action.ownerId,
       });
-      debugger
       //нормально ли очищать поле в редьюсере?
       action.element.value = ``;
       break;
+    
     case ActionType.CHANGE_ACTIVE_DIALOG:
-      const currentActiveDialog = state.find((dialog) => {
+      const currentActiveDialog = stateCopy.find((dialog) => {
         return dialog.isActive;
       });
-      const newActiveDialog = state.find((dialog) => {
+      const newActiveDialog = stateCopy.find((dialog) => {
         return dialog.id === action.newId;
       });
       if (currentActiveDialog.id !== newActiveDialog.id) {
@@ -142,7 +145,7 @@ const dialogsReducer = (state = initialState, action) => {
       break;
   }
 
-  return state;
+  return stateCopy;
 };
 
 export default dialogsReducer;
